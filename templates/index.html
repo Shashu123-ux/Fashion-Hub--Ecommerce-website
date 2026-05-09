@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Fashion Hub | Women’s Fashion Store</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="/">
+          <img src="/static/images/logo.png" alt="Fashion Hub Logo" class="logo">
+          <span class="brand-text">Fashion Hub</span>
+        </a>
+        
+
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="/products">All Products</a>
+          <a href="/products?category=Ethnic%20Elegance">Ethnic</a>
+          <a href="/products?category=Fusion%20Wear">Fusion</a>
+          <a href="/products?category=Everyday%20Kurtis">Kurtis</a>
+          <a href="/products?category=Western%20Chic">Western</a>
+          <a href="/products?category=Bottom%20Wear">Bottoms</a>
+        </nav>
+
+        <div class="nav-actions">
+          {% if user %}
+          <a href="/cart">Cart</a>
+          <a href="/orders">Orders</a>
+          <a href="/profile">Profile</a>
+          {% if user.role == 'admin' %}
+          <a href="/admin">Admin</a>
+          {% endif %}
+          <button id="logoutBtn" type="button">Logout</button>
+          {% else %}
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+          {% endif %}
+          <button class="hamburger" id="hamburgerBtn" type="button">Menu</button>
+        </div>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="container">
+          <a href="/products">All Products</a>
+          <a href="/products?category=Ethnic%20Elegance">Ethnic Elegance</a>
+          <a href="/products?category=Fusion%20Wear">Fusion Wear</a>
+          <a href="/products?category=Everyday%20Kurtis">Everyday Kurtis</a>
+          <a href="/products?category=Western%20Chic">Western Chic</a>
+          <a href="/products?category=Bottom%20Wear">Bottom Wear</a>
+          <a href="/products?category=Active%20%26%20Lounge%20Wear">Active & Lounge Wear</a>
+          <a href="/products?category=Seasonal%20%26%20Layering">Seasonal & Layering</a>
+          {% if user %}
+          <a href="/cart">Cart</a>
+          <a href="/orders">Orders</a>
+          <a href="/profile">Profile</a>
+          {% if user.role == 'admin' %}
+          <a href="/admin">Admin</a>
+          {% endif %}
+          <button id="logoutBtnMobile" type="button">Logout</button>
+          {% else %}
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-card">
+            <div class="hero-split">
+              <div>
+                <h1 class="hero-title">Soft, modern fashion for modern Indian women.</h1>
+                <p class="hero-sub">
+                  Ethnic elegance, Indo-western fusion, and western chic—curated in a clean, premium shopping experience.
+                </p>
+                <div class="pill-row">
+                  <span class="pill">Ethnic Elegance</span>
+                  <span class="pill">Fusion Wear</span>
+                  <span class="pill">Everyday Kurtis</span>
+                  <span class="pill">Western Chic</span>
+                </div>
+                <div class="hero-cta">
+                  <a class="btn primary" href="/products">Shop New Arrivals</a>
+                  <a class="btn" href="/products?category=Fusion%20Wear">Explore Fusion Wear</a>
+                </div>
+              </div>
+
+              <div class="hero-image" aria-hidden="true">
+                <img src="/static/images/hero.jpg" alt="Lifestyle fashion" />
+              </div>
+            </div>
+          </div>
+
+          <div class="breadcrumbs">
+            <span>Home</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <div>
+              <h2>Shop by category</h2>
+              <p>Explore soft edits across ethnic, fusion, and western.</p>
+            </div>
+          </div>
+
+          <div class="grid">
+            <a class="card category-card" href="/products?category=Ethnic%20Elegance">
+              <div class="category-img"><img src="/static/images/cat-ethnic.jpg" alt="Ethnic Elegance" /></div>
+              <div class="category-name">Ethnic Elegance</div>
+            </a>
+            <a class="card category-card" href="/products?category=Fusion%20Wear">
+              <div class="category-img"><img src="/static/images/cat-fushion.jpg" alt="Fusion Wear" /></div>
+              <div class="category-name">Fusion Wear</div>
+            </a>
+            <a class="card category-card" href="/products?category=Everyday%20Kurtis">
+              <div class="category-img"><img src="/static/images/cat-kurtis.jpg" alt="Everyday Kurtis" /></div>
+              <div class="category-name">Everyday Kurtis</div>
+            </a>
+            <a class="card category-card" href="/products?category=Western%20Chic">
+              <div class="category-img"><img src="/static/images/cat-western.jpg" alt="Western Chic" /></div>
+              <div class="category-name">Western Chic</div>
+            </a>
+            <a class="card category-card" href="/products?category=Bottom%20Wear">
+              <div class="category-img"><img src="/static/images/cat-bottam.jpg" alt="Bottom Wear" /></div>
+              <div class="category-name">Bottom Wear</div>
+            </a>
+            <a class="card category-card" href="/products?category=Active%20%26%20Lounge%20Wear">
+              <div class="category-img"><img src="/static/images/cat-active.jpg" alt="Active & Lounge Wear" /></div>
+              <div class="category-name">Active & Lounge Wear</div>
+            </a>
+            <a class="card category-card" href="/products?category=Seasonal%20%26%20Layering">
+              <div class="category-img"><img src="/static/images/cat-season.jpg" alt="Seasonal & Layering" /></div>
+              <div class="category-name">Seasonal & Layering</div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <div>
+              <h2>Why choose us</h2>
+              <p>Premium touches that feel like a real fashion brand.</p>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="card icon-card">
+              <div class="icon-chip" aria-hidden="true">✨</div>
+              <div class="icon-title">Curated Indian styles</div>
+              <div class="hint">Fresh edits for ethnic, fusion, and western wardrobes.</div>
+            </div>
+            <div class="card icon-card">
+              <div class="icon-chip" aria-hidden="true">🧵</div>
+              <div class="icon-title">Premium fabrics</div>
+              <div class="hint">Comfort-first materials you can wear all day.</div>
+            </div>
+            <div class="card icon-card">
+              <div class="icon-chip" aria-hidden="true">↩️</div>
+              <div class="icon-title">Easy returns</div>
+              <div class="hint">Simple 7-day return flow for peace of mind.</div>
+            </div>
+            <div class="card icon-card">
+              <div class="icon-chip" aria-hidden="true">🔒</div>
+              <div class="icon-title">Secure checkout</div>
+              <div class="hint">Clean payment experience with clear order confirmation.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Featured picks</h2>
+            <p>Fresh styles across categories</p>
+          </div>
+          <div class="grid" id="featuredProductsGrid"></div>
+        </div>
+      </section>
+    </main>
+
+    {% include '_footer.html' %}
+
+    <div class="toast-wrap" id="toastWrap"></div>
+
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/products.js"></script>
+  </body>
+</html>
+

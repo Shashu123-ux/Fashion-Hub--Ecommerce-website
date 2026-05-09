@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product | Fashion Hub</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="/">
+          <span class="brand-badge"><img src="/static/images/logo.png" alt="Fashion Hub logo" /></span>
+          <span>Fashion Hub</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="/products">All Products</a>
+          <a href="/products?category=Ethnic%20Elegance">Ethnic</a>
+          <a href="/products?category=Fusion%20Wear">Fusion</a>
+          <a href="/products?category=Everyday%20Kurtis">Kurtis</a>
+          <a href="/products?category=Western%20Chic">Western</a>
+          <a href="/products?category=Bottom%20Wear">Bottoms</a>
+        </nav>
+
+        <div class="nav-actions">
+          {% if user %}
+          <a href="/cart">Cart</a>
+          <a href="/orders">Orders</a>
+          <a href="/profile">Profile</a>
+          {% if user.role == 'admin' %}
+          <a href="/admin">Admin</a>
+          {% endif %}
+          <button id="logoutBtn" type="button">Logout</button>
+          {% else %}
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+          {% endif %}
+          <button class="hamburger" id="hamburgerBtn" type="button">Menu</button>
+        </div>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="container">
+          <a href="/products">All Products</a>
+          {% if user %}
+          <a href="/cart">Cart</a>
+          <a href="/orders">Orders</a>
+          <a href="/profile">Profile</a>
+          {% if user.role == 'admin' %}
+          <a href="/admin">Admin</a>
+          {% endif %}
+          <button id="logoutBtnMobile" type="button">Logout</button>
+          {% else %}
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <div class="breadcrumbs" id="detailBreadcrumbs">
+          <a href="/">Home</a> <span>›</span> <a href="/products">Products</a> <span>›</span> <span>Loading...</span>
+        </div>
+
+        <div class="row" style="margin-top: 14px">
+          <div class="gallery">
+            <div class="gallery-main">
+              <img id="mainImage" src="/static/images/placeholder.svg" alt="Product image" />
+            </div>
+            <div class="thumbs" id="thumbsRow"></div>
+          </div>
+
+          <div class="panel">
+            <h3 id="productName">Loading...</h3>
+
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap">
+              <div class="price" id="productPrice">₹0</div>
+              <div class="badge" id="stockBadge">Checking stock...</div>
+            </div>
+
+            <div style="margin-top: 12px; display: grid; gap: 10px">
+              <div>
+                <div class="hint" style="margin-bottom: 8px"><b>Sizes</b> (XS–XXL)</div>
+                <div class="sizes" id="sizesRow"></div>
+              </div>
+
+              <div>
+                <div class="hint" style="margin-bottom: 8px"><b>Quantity</b></div>
+                <div class="qty">
+                  <input id="qtyInput" type="number" min="1" value="1" />
+                  <span class="hint" id="qtyHint"></span>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 10px; flex-wrap: wrap">
+                <button class="btn" id="addToCartBtn" type="button">Add to Cart</button>
+                <button class="btn primary" id="buyNowBtn" type="button">Buy Now</button>
+              </div>
+            </div>
+
+            <div style="margin-top: 14px" class="panel">
+              <h3 style="margin-top: 0">Details</h3>
+              <div class="hint" id="detailsList"></div>
+            </div>
+
+            <div style="margin-top: 14px" class="panel">
+              <h3 style="margin-top: 0">Description</h3>
+              <div class="hint" id="productDesc"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 14px">
+          <div class="panel">
+            <h3>Reviews</h3>
+            <div class="review-top">
+              <div class="stars" aria-label="Rating: 4.6 out of 5">
+                ★★★★☆
+              </div>
+              <div class="hint">4.6 • 128 ratings</div>
+            </div>
+
+            <div class="review-list">
+              <div class="review">
+                <div class="review-head">
+                  <div class="review-name">Aanya</div>
+                  <div class="stars small">★★★★★</div>
+                </div>
+                <div class="hint">“Fabric feels premium and the fit is flattering. Perfect for a festive dinner.”</div>
+              </div>
+              <div class="review">
+                <div class="review-head">
+                  <div class="review-name">Meera</div>
+                  <div class="stars small">★★★★☆</div>
+                </div>
+                <div class="hint">“Loved the colour and stitching. I sized up for a relaxed look.”</div>
+              </div>
+              <div class="review">
+                <div class="review-head">
+                  <div class="review-name">Riya</div>
+                  <div class="stars small">★★★★★</div>
+                </div>
+                <div class="hint">“Delivered on time and looks exactly like the photos. Great value.”</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Delivery & trust</h3>
+            <div class="trust-list">
+              <div class="trust-item"><span class="trust-dot">🚚</span> Free delivery above <b>₹999</b></div>
+              <div class="trust-item"><span class="trust-dot">↩️</span> <b>7-day</b> easy returns</div>
+              <div class="trust-item"><span class="trust-dot">💸</span> Cash on Delivery available</div>
+              <div class="trust-item"><span class="trust-dot">✅</span> Quality checked before dispatch</div>
+            </div>
+            <div class="soft-divider"></div>
+            <div class="hint">
+              Tip: If you’re between sizes, choose the larger size for a softer, relaxed fit.
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top: 14px">
+          <div style="display:flex; align-items:end; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+            <div>
+              <h3 style="margin:0;">Recently viewed</h3>
+              <div class="hint">Your last few styles, all in one place.</div>
+            </div>
+            <a class="btn" href="/products">Continue shopping</a>
+          </div>
+          <div class="grid" id="recentlyViewedGrid" style="margin-top: 14px"></div>
+          <div class="hint" id="recentlyViewedEmpty" style="display:none; margin-top: 14px">
+            No recently viewed items yet. Start exploring and we’ll save them here.
+          </div>
+        </div>
+      </div>
+    </main>
+
+    {% include '_footer.html' %}
+    <div class="toast-wrap" id="toastWrap"></div>
+    <script src="/static/js/auth.js"></script>
+    <script>
+      window.__productId = {{ product_id|tojson|safe }};
+    </script>
+    <script src="/static/js/products.js"></script>
+    <script src="/static/js/cart.js"></script>
+  </body>
+</html>
+

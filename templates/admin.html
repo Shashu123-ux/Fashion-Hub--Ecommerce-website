@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | Fashion Hub</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="/">
+          <span class="brand-badge"><img src="/static/images/logo.png" alt="Fashion Hub logo" /></span>
+          <span>Fashion Hub</span>
+        </a>
+        <nav class="nav-links">
+          <a href="/products">Products</a>
+          <a href="/orders">My Orders</a>
+          <a href="/profile">Profile</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="/cart">Cart</a>
+          <button id="logoutBtn" type="button">Logout</button>
+          <button class="hamburger" id="hamburgerBtn" type="button">
+            Menu
+          </button>
+        </div>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="container">
+          <a href="/products">Products</a>
+          <a href="/orders">My Orders</a>
+          <a href="/profile">Profile</a>
+          <a href="/cart">Cart</a>
+          <button id="logoutBtnMobile" type="button">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Admin dashboard</h2>
+            <p>Inventory management, users, orders, and revenue.</p>
+          </div>
+          <a class="btn" href="/products">Open store</a>
+        </div>
+
+        <div class="breadcrumbs">
+          <a href="/">Home</a> <span>›</span> <span>Admin</span>
+        </div>
+
+        <div class="kpi-grid" style="margin-top: 14px">
+          <div class="kpi kpi-pink">
+            <div class="label">Total users</div>
+            <div class="value" id="kpiUsers">0</div>
+          </div>
+          <div class="kpi kpi-lavender">
+            <div class="label">Total orders</div>
+            <div class="value" id="kpiOrders">0</div>
+          </div>
+          <div class="kpi kpi-soft">
+            <div class="label">Revenue</div>
+            <div class="value" id="kpiRevenue">₹0</div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 14px">
+          <div class="panel">
+            <h3>Add / edit product</h3>
+            <form class="form" id="productForm">
+              <input type="hidden" id="productId" />
+              <div>
+                <label>Product name</label>
+                <input
+                  id="pName"
+                  type="text"
+                  placeholder="e.g., Floral Kurti"
+                  required
+                />
+              </div>
+              <div>
+                <label>Category</label>
+                <select id="pCategory" required>
+                  <option value="Ethnic Elegance">Ethnic Elegance</option>
+                  <option value="Fusion Wear">Fusion Wear</option>
+                  <option value="Everyday Kurtis">Everyday Kurtis</option>
+                  <option value="Western Chic">Western Chic</option>
+                  <option value="Bottom Wear">Bottom Wear</option>
+                  <option value="Active & Lounge Wear">
+                    Active & Lounge Wear
+                  </option>
+                  <option value="Seasonal & Layering">
+                    Seasonal & Layering
+                  </option>
+                </select>
+              </div>
+              <div
+                class="row"
+                style="grid-template-columns: 1fr 1fr; gap: 10px"
+              >
+                <div>
+                  <label>Price (₹)</label>
+                  <input id="pPrice" type="number" min="1" step="1" required />
+                </div>
+                <div>
+                  <label>Stock</label>
+                  <input id="pStock" type="number" min="0" step="1" required />
+                </div>
+              </div>
+              <div>
+                <label>Description</label>
+                <textarea
+                  id="pDesc"
+                  placeholder="Short description about the product"
+                  required
+                ></textarea>
+              </div>
+
+              <div>
+                <label>Details (Fabric, Fit, Occasion, Care)</label>
+                <textarea
+                  id="pDetails"
+                  placeholder="Fabric: ...&#10;Fit: ...&#10;Occasion: ...&#10;Care: ..."
+                ></textarea>
+              </div>
+              
+              <div>
+                <label>Discount (%)</label>
+                <input
+                  id="pDiscount"
+                  type="number"
+                  min="0"
+                  max="90"
+                  placeholder="e.g. 10"
+                />
+              </div>
+
+              <div>
+                <label>Image URLs (comma-separated)</label>
+                <input
+                  id="pImages"
+                  type="text"
+                  placeholder="/static/images/placeholder.svg, /static/images/placeholder.svg"
+                />
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap">
+                <button class="btn primary" type="submit" id="saveProductBtn">
+                  Save product
+                </button>
+                <button class="btn" type="button" id="clearFormBtn">
+                  Clear
+                </button>
+              </div>
+              <div class="hint">
+                Tip: keep 2–3 image URLs for a gallery effect. (You can reuse
+                the placeholder SVG.)
+              </div>
+            </form>
+          </div>
+
+          <div class="panel">
+            <h3>Product inventory</h3>
+            <div class="hint">
+              Low-stock and out-of-stock items are highlighted.
+            </div>
+            <div class="hint" id="adminProductsWrap">Loading...</div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 14px">
+          <div class="panel">
+            <h3>Users</h3>
+            <div class="hint" id="adminUsersWrap">Loading...</div>
+          </div>
+          <div class="panel">
+            <h3>Orders</h3>
+            <div class="hint" id="adminOrdersWrap">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    {% include '_footer.html' %}
+    <div class="toast-wrap" id="toastWrap"></div>
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/admin.js"></script>
+  </body>
+</html>

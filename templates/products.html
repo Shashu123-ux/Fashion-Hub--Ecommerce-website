@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products | Fashion Hub</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="/">
+          <span class="brand-badge"><img src="/static/images/logo.png" alt="Fashion Hub logo" /></span>
+          <span>Fashion Hub</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="/products">All Products</a>
+          <a href="/products?category=Ethnic%20Elegance">Ethnic</a>
+          <a href="/products?category=Fusion%20Wear">Fusion</a>
+          <a href="/products?category=Everyday%20Kurtis">Kurtis</a>
+          <a href="/products?category=Western%20Chic">Western</a>
+          <a href="/products?category=Bottom%20Wear">Bottoms</a>
+        </nav>
+
+        <div class="nav-actions">
+          {% if user %}
+          <a href="/cart">Cart</a>
+          <a href="/orders">Orders</a>
+          <a href="/profile">Profile</a>
+          {% if user.role == 'admin' %}
+          <a href="/admin">Admin</a>
+          {% endif %}
+          <button id="logoutBtn" type="button">Logout</button>
+          {% else %}
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+          {% endif %}
+          <button class="hamburger" id="hamburgerBtn" type="button">Menu</button>
+        </div>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="container">
+          <a href="/products">All Products</a>
+          <a href="/products?category=Ethnic%20Elegance">Ethnic Elegance</a>
+          <a href="/products?category=Fusion%20Wear">Fusion Wear</a>
+          <a href="/products?category=Everyday%20Kurtis">Everyday Kurtis</a>
+          <a href="/products?category=Western%20Chic">Western Chic</a>
+          <a href="/products?category=Bottom%20Wear">Bottom Wear</a>
+          <a href="/products?category=Active%20%26%20Lounge%20Wear">Active & Lounge Wear</a>
+          <a href="/products?category=Seasonal%20%26%20Layering">Seasonal & Layering</a>
+          {% if user %}
+          <a href="/cart">Cart</a>
+          <a href="/orders">Orders</a>
+          <a href="/profile">Profile</a>
+          {% if user.role == 'admin' %}
+          <a href="/admin">Admin</a>
+          {% endif %}
+          <button id="logoutBtnMobile" type="button">Logout</button>
+          {% else %}
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2 id="productsTitle">Shop</h2>
+            <p id="productsSubtitle">Browse category-wise, add to cart, and checkout.</p>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center">
+            <select id="categorySelect" style="min-width: 220px">
+              <option value="">All categories</option>
+            </select>
+            <input id="searchInput" type="text" placeholder="Search products..." style="min-width: 220px" />
+            <button class="btn" id="searchBtn" type="button">Search</button>
+          </div>
+        </div>
+
+        <div class="breadcrumbs">
+          <a href="/">Home</a> <span>›</span> <span>Products</span>
+          {% if category %}
+          <span>›</span> <span>{{ category }}</span>
+          {% endif %}
+        </div>
+
+        <div class="grid" id="productsGrid" style="margin-top: 14px"></div>
+        <div class="hint" id="productsEmpty" style="display: none; margin-top: 14px">
+          No products found. Try a different category or search.
+        </div>
+      </div>
+    </main>
+
+    {% include '_footer.html' %}
+    <div class="toast-wrap" id="toastWrap"></div>
+    <script src="/static/js/auth.js"></script>
+    <script>
+      window.__initialCategory = "{{ category }}";
+    </script>
+    <script src="/static/js/products.js"></script>
+  </body>
+</html>
+

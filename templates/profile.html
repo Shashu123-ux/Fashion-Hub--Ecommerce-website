@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile | Fashion Hub</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="/">
+          <span class="brand-badge"><img src="/static/images/logo.png" alt="Fashion Hub logo" /></span>
+          <span>Fashion Hub</span>
+        </a>
+        <nav class="nav-links">
+          <a href="/products">All Products</a>
+          <a href="/cart">Cart</a>
+          <a href="/orders">Orders</a>
+        </nav>
+        <div class="nav-actions">
+          {% if user and user.role == 'admin' %}
+          <a href="/admin">Admin</a>
+          {% endif %}
+          <button id="logoutBtn" type="button">Logout</button>
+          <button class="hamburger" id="hamburgerBtn" type="button">Menu</button>
+        </div>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="container">
+          <a href="/products">All Products</a>
+          <a href="/cart">Cart</a>
+          <a href="/orders">Orders</a>
+          {% if user and user.role == 'admin' %}
+          <a href="/admin">Admin</a>
+          {% endif %}
+          <button id="logoutBtnMobile" type="button">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Your dashboard</h2>
+            <p>Profile, addresses, security, and your latest order—all in one place.</p>
+          </div>
+          <a class="btn" href="/products">Shop</a>
+        </div>
+
+        <div class="breadcrumbs">
+          <a href="/">Home</a> <span>›</span> <span>Profile</span>
+        </div>
+
+        <div class="grid" style="margin-top: 14px">
+          <div class="panel span-6">
+            <h3>Profile summary</h3>
+            <div id="profileSummaryWrap" class="hint">Loading...</div>
+            <div class="soft-divider"></div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn" href="/orders">Orders</a>
+              <button class="btn" id="wishlistBtn" type="button">Wishlist</button>
+              <button class="btn primary" id="logoutBtnInline" type="button">Logout</button>
+            </div>
+          </div>
+
+          <div class="panel span-6">
+            <h3>Edit profile</h3>
+            <form class="form" id="editNameForm">
+              <div>
+                <label>Name</label>
+                <input id="editNameInput" type="text" placeholder="Your name" required />
+              </div>
+              <div>
+                <label>Email (read-only)</label>
+                <input id="emailReadonly" type="email" readonly />
+              </div>
+              <button class="btn primary" type="submit">Save changes</button>
+              <div class="hint">We’ll show a confirmation message after saving.</div>
+            </form>
+          </div>
+
+          <div class="panel span-7">
+            <h3>Saved addresses</h3>
+            <div id="addressesEmpty" class="empty-state" style="display:none;">No saved addresses yet.</div>
+            <div id="addressesList" class="address-list"></div>
+            <div class="soft-divider"></div>
+            <h3 style="margin-top:0;">Add / edit address</h3>
+            <form class="form" id="addressForm">
+              <input type="hidden" id="addressId" />
+              <div class="row" style="grid-template-columns: 1fr 1fr; gap: 10px">
+                <div>
+                  <label>Full name</label>
+                  <input id="addrFullName" type="text" required />
+                </div>
+                <div>
+                  <label>Phone</label>
+                  <input id="addrPhone" type="text" placeholder="10-digit number" required />
+                </div>
+              </div>
+              <div>
+                <label>Street</label>
+                <input id="addrStreet" type="text" placeholder="House no, area, landmark" required />
+              </div>
+              <div class="row" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px">
+                <div>
+                  <label>City</label>
+                  <input id="addrCity" type="text" required />
+                </div>
+                <div>
+                  <label>State</label>
+                  <input id="addrState" type="text" required />
+                </div>
+                <div>
+                  <label>Pincode</label>
+                  <input id="addrPincode" type="text" required />
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                <label style="display:flex; gap:10px; align-items:center; margin:0;">
+                  <input id="addrDefault" type="checkbox" />
+                  Set as default
+                </label>
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn primary" type="submit">Save address</button>
+                <button class="btn" id="clearAddressBtn" type="button">Clear</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="panel span-5">
+            <h3>Security</h3>
+            <form class="form" id="changePasswordForm">
+              <div>
+                <label>Current password</label>
+                <input id="currentPassword" type="password" required />
+              </div>
+              <div>
+                <label>New password</label>
+                <input id="newPassword" type="password" required />
+              </div>
+              <div>
+                <label>Confirm new password</label>
+                <input id="confirmPassword" type="password" required />
+              </div>
+              <button class="btn primary" type="submit">Change password</button>
+              <div class="hint">For safety, we verify your current password first.</div>
+            </form>
+          </div>
+
+          <div class="panel span-7">
+            <h3>Recent order snapshot</h3>
+            <div id="recentOrderWrap" class="hint">Loading...</div>
+          </div>
+
+          <div class="panel span-5">
+            <h3>Preferences (UI only)</h3>
+            <div class="hint">We’ll remember these on this device.</div>
+            <div class="soft-divider"></div>
+            <div class="pref-grid">
+              <label class="pref-item"><input type="checkbox" class="prefCheck" value="Ethnic" /> Ethnic</label>
+              <label class="pref-item"><input type="checkbox" class="prefCheck" value="Fusion" /> Fusion</label>
+              <label class="pref-item"><input type="checkbox" class="prefCheck" value="Western" /> Western</label>
+              <label class="pref-item"><input type="checkbox" class="prefCheck" value="Casual" /> Casual</label>
+              <label class="pref-item"><input type="checkbox" class="prefCheck" value="Festive" /> Festive</label>
+              <label class="pref-item"><input type="checkbox" class="prefCheck" value="Office" /> Office</label>
+            </div>
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn primary" id="savePrefsBtn" type="button">Save preferences</button>
+              <button class="btn" id="clearPrefsBtn" type="button">Clear</button>
+            </div>
+          </div>
+
+          <div class="panel span-12">
+            <h3>Transactions</h3>
+            <div id="transactionsWrap" class="hint">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    {% include '_footer.html' %}
+    <div class="toast-wrap" id="toastWrap"></div>
+    <script src="/static/js/auth.js"></script>
+  </body>
+</html>
+
